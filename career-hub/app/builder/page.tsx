@@ -29,7 +29,7 @@ export default async function BuilderPage() {
                 <CVEditor
                     initialCredits={profile.credits}
                     userProfile={{
-                        fullName: profile.full_name,
+                        full_name: profile.full_name,
                         email: profile.email,
                     }}
                 />
