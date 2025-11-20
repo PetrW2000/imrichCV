@@ -26,7 +26,13 @@ export default async function BuilderPage() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
             <main>
-                <CVEditor initialCredits={profile.credits} />
+                <CVEditor
+                    initialCredits={profile.credits}
+                    userProfile={{
+                        fullName: profile.full_name,
+                        email: profile.email,
+                    }}
+                />
             </main>
         </div>
     )

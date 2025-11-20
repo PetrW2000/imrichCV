@@ -24,11 +24,12 @@ export type CVData = {
         phone: string
         jobTitle: string
         linkedin: string
+        photo?: string
     }
     experiences: Experience[]
     education: Education[]
     skills: string[]
-    selectedTemplate: 'minimalist' | 'bold'
+    selectedTemplate: 'minimalist' | 'bold' | 'creative' | 'professional'
 }
 
 interface CVStore {
@@ -42,7 +43,7 @@ interface CVStore {
     removeEducation: (id: string) => void
     addSkill: (skill: string) => void
     removeSkill: (skill: string) => void
-    setTemplate: (template: 'minimalist' | 'bold') => void
+    setTemplate: (template: 'minimalist' | 'bold' | 'creative' | 'professional') => void
     setFullData: (data: CVData) => void
 }
 
@@ -54,6 +55,7 @@ export const useCVStore = create<CVStore>((set) => ({
             phone: '',
             jobTitle: '',
             linkedin: '',
+            photo: '',
         },
         experiences: [],
         education: [],

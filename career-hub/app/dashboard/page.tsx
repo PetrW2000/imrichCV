@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { DashboardContent } from '@/components/dashboard/dashboard-content'
+import { getTransactions } from '@/app/wallet/actions'
 
 export default async function DashboardPage() {
     const supabase = await createClient()
@@ -22,13 +24,7 @@ export default async function DashboardPage() {
         redirect('/onboarding')
     }
 
-    return (
-        <div className="p-8">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
-            <p className="mt-4">Welcome back, {profile.full_name}</p>
-            <div className="mt-4 p-4 border rounded-lg bg-gray-50 dark:bg-gray-900">
-                <p>Credits: {profile.credits}</p>
-            </div>
-        </div>
-    )
+    const { transactions } = await getTransactions()
+
+    return <DashboardContent profile={profile} transactions={transactions || []} />
 }

@@ -19,6 +19,18 @@ const templates = [
         description: 'Stand out with strong typography and accents.',
         color: 'bg-blue-100',
     },
+    {
+        id: 'creative',
+        name: 'Creative',
+        description: 'Modern layout with sidebar and dark accents.',
+        color: 'bg-purple-100',
+    },
+    {
+        id: 'professional',
+        name: 'Professional',
+        description: 'Traditional, elegant, and serif-focused.',
+        color: 'bg-gray-200',
+    },
 ] as const
 
 export function TemplateSelector() {
