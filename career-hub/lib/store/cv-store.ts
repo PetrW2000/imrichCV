@@ -40,6 +40,8 @@ interface CVStore {
     addEducation: (education: Education) => void
     updateEducation: (id: string, education: Partial<Education>) => void
     removeEducation: (id: string) => void
+    addSkill: (skill: string) => void
+    removeSkill: (skill: string) => void
     setTemplate: (template: 'minimalist' | 'bold') => void
     setFullData: (data: CVData) => void
 }
@@ -106,6 +108,20 @@ export const useCVStore = create<CVStore>((set) => ({
             data: {
                 ...state.data,
                 education: state.data.education.filter((edu) => edu.id !== id),
+            },
+        })),
+    addSkill: (skill) =>
+        set((state) => ({
+            data: {
+                ...state.data,
+                skills: [...state.data.skills, skill],
+            },
+        })),
+    removeSkill: (skill) =>
+        set((state) => ({
+            data: {
+                ...state.data,
+                skills: state.data.skills.filter((s) => s !== skill),
             },
         })),
     setTemplate: (template) =>

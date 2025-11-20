@@ -1,13 +1,13 @@
 'use client'
 
 import { useActionState } from 'react'
-import { submitOnboarding } from './actions'
+import { submitOnboarding, OnboardingState } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Loader2 } from 'lucide-react'
 
-const initialState = {
+const initialState: OnboardingState = {
     error: '',
     errors: {},
 }

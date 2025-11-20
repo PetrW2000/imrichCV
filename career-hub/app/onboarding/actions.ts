@@ -11,7 +11,17 @@ const onboardingSchema = z.object({
     linkedin_url: z.string().url('Invalid URL').optional().or(z.literal('')),
 })
 
-export async function submitOnboarding(prevState: any, formData: FormData) {
+export type OnboardingState = {
+    errors?: {
+        full_name?: string[]
+        job_title?: string[]
+        phone?: string[]
+        linkedin_url?: string[]
+    }
+    error?: string
+}
+
+export async function submitOnboarding(prevState: OnboardingState, formData: FormData): Promise<OnboardingState> {
     const supabase = await createClient()
     const {
         data: { user },

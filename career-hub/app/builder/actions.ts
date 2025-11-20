@@ -76,3 +76,42 @@ export async function aiEnhanceDescription(text: string) {
         return { error: 'AI generation failed' }
     }
 }
+
+export async function downloadPdf() {
+    const supabase = await createClient()
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        return { error: 'Unauthorized' }
+    }
+
+    // 1. Check Credits
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('credits')
+        .eq('id', user.id)
+        .single()
+
+    if (!profile || profile.credits < 50) {
+        return { error: 'Insufficient credits (50 required)' }
+    }
+
+    // 2. Deduct Credits
+    const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ credits: profile.credits - 50 })
+        .eq('id', user.id)
+
+    if (updateError) return { error: 'Transaction failed' }
+
+    await supabase.from('transactions').insert({
+        user_id: user.id,
+        amount: -50,
+        type: 'usage',
+        description: 'PDF Download'
+    })
+
+    return { success: true }
+}
